@@ -1,18 +1,20 @@
 function Ship(length) {
-	let hits = [];
+	let hits = 0;
 	function getLength() {
 		return length;
 	}
 	function hitPoints() {
-		return hits;
+		return length - hits;
 	}
 	function isSunk() {
-		if (hitPoints() >= getLength()) {
+		if (hitPoints() <= 0) {
 			return true;
 		}
 		return false;
 	}
-	function hit() {}
+	function hit() {
+		hits++;
+	}
 
 	return { getLength, hitPoints, isSunk, hit };
 }
