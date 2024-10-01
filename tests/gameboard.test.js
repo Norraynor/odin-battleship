@@ -73,14 +73,34 @@ describe("gameboard object tests", () => {
 		expect(currentGameboard.getGameboard()[0][1].hitPoints()).toBe(0);
 	});
 
-	test.only("ship is created on 2 spaces horizontally and cannot be hit twice on the same spot", () => {
+	test("ship is created on 2 spaces horizontally and cannot be hit twice on the same spot", () => {
 		let newShip = ship.Ship(2);
 		currentGameboard.placeShip(newShip, 0, 0, true);
 		expect(currentGameboard.getGameboard()[0][0].hitPoints()).toBe(2);
 		expect(currentGameboard.receiveAttack(0, 0)).toBe(1);
-		// currentGameboard.receiveAttack(0, 0);
-		// expect(currentGameboard.getGameboard()[0][0].hitPoints()).toBe(1);
-		// currentGameboard.receiveAttack(0, 0);
-		// expect(currentGameboard.getGameboard()[0][1].hitPoints()).toBe(1);
+		currentGameboard.receiveAttack(0, 0);
+		expect(currentGameboard.getGameboard()[0][0].hitPoints()).toBe(1);
+		currentGameboard.receiveAttack(0, 0);
+		expect(currentGameboard.getGameboard()[0][1].hitPoints()).toBe(1);
+	});
+
+	test("ship is not destroyed and game not over", () => {
+		let newShip = ship.Ship(2);
+		currentGameboard.placeShip(newShip, 0, 0, true);
+		expect(currentGameboard.getGameboard()[0][0].hitPoints()).toBe(2);
+		expect(currentGameboard.isGameOver()).toBe(false);
+	});
+
+	test.only("ship is sunk and game is over", () => {
+		let newShip = ship.Ship(2);
+		currentGameboard.placeShip(newShip, 0, 0, true);
+		expect(currentGameboard.getGameboard()[0][0].hitPoints()).toBe(2);
+		currentGameboard.receiveAttack(0, 0);
+		expect(currentGameboard.getGameboard()[0][0].hitPoints()).toBe(1);
+		expect(currentGameboard.getGameboard()[0][1].isSunk()).toBe(false);
+		currentGameboard.receiveAttack(0, 1);
+		expect(currentGameboard.getGameboard()[0][1].hitPoints()).toBe(0);
+		expect(currentGameboard.getGameboard()[0][1].isSunk()).toBe(true);
+		expect(currentGameboard.isGameOver()).toBe(true);
 	});
 });

@@ -5,7 +5,7 @@ function Gameboard() {
 		return board;
 	}
 	const gameboard = createBoard(boardSize);
-	const hitBoard = gameboard;
+	const hitBoard = createBoard(boardSize);
 	function getGameboard() {
 		return gameboard;
 	}
@@ -40,11 +40,18 @@ function Gameboard() {
 			}
 		}
 	}
+	function isGameOver() {
+		// Check if all ships are sunk
+		return gameboard.every((row) =>
+			row.every((cell) => cell == null || cell.isSunk())
+		);
+	}
 	return {
 		gameboard,
 		placeShip,
 		receiveAttack,
 		getGameboard,
+		isGameOver,
 	};
 }
 
