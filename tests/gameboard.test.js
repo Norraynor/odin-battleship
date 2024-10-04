@@ -2,7 +2,7 @@ const board = require("../modules/gameboard.js");
 const ship = require("../modules/ship.js");
 
 describe("gameboard object tests", () => {
-	let currentGameboard = board.Gameboard();
+	let currentGameboard = board.Gameboard(3);
 	let emptyArray = [
 		[null, null, null],
 		[null, null, null],

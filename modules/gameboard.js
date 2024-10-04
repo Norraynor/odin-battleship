@@ -1,5 +1,4 @@
-function Gameboard() {
-	const boardSize = 3;
+function Gameboard(boardSize) {
 	function createBoard(size) {
 		let board = Array.from({ length: size }, () => Array(size).fill(null));
 		return board;
