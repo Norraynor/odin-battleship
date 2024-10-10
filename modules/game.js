@@ -5,14 +5,16 @@ function Game() {
 	// Create players
 	const player1 = Player("Player 1");
 	const player2 = Player("Player 2", true);
+	function getPlayers() {
+		return [player1, player2];
+	}
 
 	return {
-		player1,
-		player2,
+		getPlayers,
 	};
 }
 
-export default { Game };
+export default Game;
 
 // // Create ships
 // const BATTLESHIP = 5;
