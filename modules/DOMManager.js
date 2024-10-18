@@ -9,6 +9,12 @@ function buildGameboard(player) {
 			cell.classList.add("cell");
 			cell.setAttribute("x", indexX);
 			cell.setAttribute("y", indexY);
+			if (
+				typeof board.getGameboard()[indexX][indexY] === "object" &&
+				board.getGameboard()[indexX][indexY] != null
+			) {
+				cell.classList.add("ship");
+			}
 			displayBoard.appendChild(cell);
 		});
 	});

@@ -1,14 +1,17 @@
 .cell {
 	width: 32px;
 	height: 32px;
-	background: purple;
+	border: solid 1px black;
+}
+.ship {
+	background-color: lightblue;
 }
 
 .gameboard {
 	display: grid;
 	grid-template-columns: repeat(10, 1fr);
 	grid-template-rows: repeat(10, 1fr);
-	gap: 8px;
+	gap: 1px;
 	justify-content: start;
 	width: 320px;
 }
