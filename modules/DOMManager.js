@@ -5,7 +5,11 @@ function buildGameboard(player) {
 	board.gameboard.forEach((subArr, indexX) => {
 		subArr.forEach((element, indexY) => {
 			const cell = document.createElement("div");
-			cell.textContent = element;
+			console.log(element?.getLength());
+
+			//debugging
+			cell.textContent = element?.getLength();
+
 			cell.classList.add("cell");
 			cell.setAttribute("x", indexX);
 			cell.setAttribute("y", indexY);

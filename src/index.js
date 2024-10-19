@@ -3,13 +3,16 @@ import * as DOMManager from "../modules/DOMManager";
 import Game from "../modules/game";
 function component() {
 	const element = document.createElement("div");
-	const players = Game().getPlayers();
+	const game = Game();
+	const players = game.getPlayers();
 	// console.log(players[0].getBoard());
 
-	// Lodash, currently included via a script, is required for this line to work
 	element.appendChild(DOMManager.buildGameboard(players[0]));
 
-	Game().populatePlayerBoard();
+	game.populatePlayerBoard();
+	element.textContent = "";
+	element.appendChild(DOMManager.buildGameboard(players[0]));
+
 	console.table(players[0].getBoard().getGameboard());
 	// console.table(players[1].getBoard().getGameboard());
 

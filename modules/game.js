@@ -5,7 +5,7 @@ const BATTLESHIP = 5;
 const CRUISER = 4;
 const DESTROYER = 3;
 const SUBMARINE = 2;
-function Game() {
+export default function Game() {
 	// Create players
 	const player1 = Player("Player 1");
 	const player2 = Player("Player 2", true);
@@ -33,8 +33,6 @@ function Game() {
 		populatePlayerBoard,
 	};
 }
-
-export default Game;
 
 // // Create ships
 // const BATTLESHIP = 5;
