@@ -51,6 +51,7 @@ function Gameboard(boardSize) {
 		receiveAttack,
 		getGameboard,
 		isGameOver,
+		getHitBoard,
 	};
 }
 

@@ -5,7 +5,6 @@ function buildGameboard(player) {
 	board.gameboard.forEach((subArr, indexX) => {
 		subArr.forEach((element, indexY) => {
 			const cell = document.createElement("div");
-			console.log(element?.getLength());
 
 			//debugging
 			cell.textContent = element?.getLength();
@@ -25,4 +24,32 @@ function buildGameboard(player) {
 	return displayBoard;
 }
 
-module.exports = { buildGameboard };
+function buildHitBoard(player) {
+	const board = player.getBoard();
+	const displayBoard = document.createElement("div");
+	displayBoard.classList.add("hitboard");
+
+	board.getHitBoard().forEach((subArr, indexX) => {
+		subArr.forEach((element, indexY) => {
+			const cell = document.createElement("div");
+
+			//debugging
+			cell.textContent = element?.getLength();
+
+			cell.classList.add("cell");
+			cell.setAttribute("x", indexX);
+			cell.setAttribute("y", indexY);
+			if (board.getGameboard()[indexX][indexY] != null) {
+				if (board.getGameboard()[indexX][indexY] == -1) {
+					cell.classList.add("missed");
+				} else if (board.getGameboard()[indexX][indexY] == 1) {
+					cell.classList.add("hit");
+				}
+			}
+			displayBoard.appendChild(cell);
+		});
+	});
+	return displayBoard;
+}
+
+module.exports = { buildGameboard, buildHitBoard };
