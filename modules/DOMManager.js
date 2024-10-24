@@ -23,7 +23,6 @@ function buildGameboard(player) {
 	});
 	return displayBoard;
 }
-
 function buildHitBoard(player) {
 	const board = player.getBoard();
 	const displayBoard = document.createElement("div");
@@ -34,18 +33,36 @@ function buildHitBoard(player) {
 			const cell = document.createElement("div");
 
 			//debugging
-			cell.textContent = element?.getLength();
+			// cell.textContent = element?.getLength();
 
 			cell.classList.add("cell");
 			cell.setAttribute("x", indexX);
 			cell.setAttribute("y", indexY);
-			if (board.getGameboard()[indexX][indexY] != null) {
-				if (board.getGameboard()[indexX][indexY] == -1) {
+			if (board.getGameboard()[indexX][indexY] !== null) {
+				if (board.getHitBoard()[indexX][indexY] == -1) {
 					cell.classList.add("missed");
-				} else if (board.getGameboard()[indexX][indexY] == 1) {
+				} else if (board.getHitBoard()[indexX][indexY] == 1) {
 					cell.classList.add("hit");
 				}
 			}
+			cell.addEventListener("click", (e) => {
+				e.preventDefault();
+				board.receiveAttack(indexX, indexY);
+				console.log(board.getGameboard()[indexX][indexY]);
+				console.log(board.getHitBoard()[indexX][indexY]);
+
+				//generate rebuild event
+				const rebuild = new CustomEvent("rebuild", {
+					bubbles: true,
+				});
+				displayBoard.dispatchEvent(rebuild);
+
+				console.log(`clicked ${[indexX, indexY]}`);
+
+				if (board.isGameOver()) {
+					alert("Game Over!");
+				}
+			});
 			displayBoard.appendChild(cell);
 		});
 	});

@@ -21,3 +21,10 @@
 	justify-content: start;
 	width: 320px;
 }
+
+.missed {
+	background-color: red;
+}
+.hit {
+	background-color: green;
+}
