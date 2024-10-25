@@ -43,12 +43,13 @@ function buildHitBoard(player) {
 			} else if (board.getHitBoard()[indexX][indexY] == 1) {
 				cell.classList.add("hit");
 			}
+			if (board.getGameboard()[indexX][indexY]?.isSunk()) {
+				cell.classList.add("sunk");
+			}
 
 			cell.addEventListener("click", (e) => {
 				e.preventDefault();
 				board.receiveAttack(indexX, indexY);
-				console.log(board.getGameboard()[indexX][indexY]);
-				console.log(board.getHitBoard()[indexX][indexY]);
 
 				//generate rebuild event
 				const rebuild = new CustomEvent("rebuild", {

@@ -9,6 +9,8 @@ export default function Game() {
 	// Create players
 	const player1 = Player("Player 1");
 	const player2 = Player("Player 2", true);
+	let playersTurn = true;
+
 	function getPlayers() {
 		return [player1, player2];
 	}
@@ -19,7 +21,6 @@ export default function Game() {
 		player1.getBoard().placeShip(Ship(CRUISER), 1, 0);
 		player1.getBoard().placeShip(Ship(DESTROYER), 2, 0);
 		player1.getBoard().placeShip(Ship(SUBMARINE), 3, 0);
-		console.table(player1.getBoard().getGameboard());
 
 		// Place ships on computer board
 		player2.getBoard().placeShip(Ship(BATTLESHIP), 5, 5);
