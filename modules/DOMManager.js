@@ -38,13 +38,12 @@ function buildHitBoard(player) {
 			cell.classList.add("cell");
 			cell.setAttribute("x", indexX);
 			cell.setAttribute("y", indexY);
-			if (board.getGameboard()[indexX][indexY] !== null) {
-				if (board.getHitBoard()[indexX][indexY] == -1) {
-					cell.classList.add("missed");
-				} else if (board.getHitBoard()[indexX][indexY] == 1) {
-					cell.classList.add("hit");
-				}
+			if (board.getHitBoard()[indexX][indexY] == -1) {
+				cell.classList.add("missed");
+			} else if (board.getHitBoard()[indexX][indexY] == 1) {
+				cell.classList.add("hit");
 			}
+
 			cell.addEventListener("click", (e) => {
 				e.preventDefault();
 				board.receiveAttack(indexX, indexY);

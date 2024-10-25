@@ -27,12 +27,12 @@ function Gameboard(boardSize) {
 	function receiveAttack(x, y) {
 		// -1 if miss and 1 if hit
 		if (gameboard[x][y] == null) {
-			hitBoard[x][y] = -1;
+			hitBoard[x][y] = Number(-1);
 			return "miss";
 		} else {
 			if (hitBoard[x][y] === null) {
 				gameboard[x][y].hit();
-				hitBoard[x][y] = 1;
+				hitBoard[x][y] = Number(1);
 				return gameboard[x][y].hitPoints();
 			} else {
 				return "already hit";
