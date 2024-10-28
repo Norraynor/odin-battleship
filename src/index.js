@@ -10,7 +10,6 @@ function component() {
 	// console.log(players[0].getBoard());
 
 	element.addEventListener("rebuild", (e) => {
-		console.log("rebuild");
 		element.textContent = "";
 		element.appendChild(DOMManager.buildGameboard(players[0]));
 		element.appendChild(DOMManager.buildHitBoard(players[1]));

@@ -11,6 +11,9 @@ function Gameboard(boardSize) {
 	function getHitBoard() {
 		return hitBoard;
 	}
+	function getLength() {
+		return boardSize;
+	}
 	function placeShip(ship, x, y, horizontal = true) {
 		//gameboard[x][y] = ship;
 		if (horizontal) {
@@ -52,6 +55,7 @@ function Gameboard(boardSize) {
 		getGameboard,
 		isGameOver,
 		getHitBoard,
+		getLength,
 	};
 }
 

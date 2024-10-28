@@ -11,6 +11,24 @@ export default function Game() {
 	const player2 = Player("Player 2", true);
 	let playersTurn = true;
 
+	window.addEventListener("rebuild", () => {
+		playersTurn = !playersTurn;
+		console.log(`Player ${playersTurn ? "1" : "2"}'s turn.`);
+		if (!playersTurn) {
+			//computer turn
+			let board = player2.getBoard();
+			board.receiveAttack(
+				Math.floor(Math.random() * board.getLength()),
+				Math.floor(Math.random() * board.getLength())
+			);
+			const rebuild = new CustomEvent("rebuild", {
+				bubbles: true,
+			});
+			window.dispatchEvent(rebuild);
+			//figure out how to make computer attack mark on player board
+		}
+	});
+
 	function getPlayers() {
 		return [player1, player2];
 	}
