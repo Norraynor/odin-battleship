@@ -16,16 +16,15 @@ export default function Game() {
 		console.log(`Player ${playersTurn ? "1" : "2"}'s turn.`);
 		if (!playersTurn) {
 			//computer turn
-			let board = player2.getBoard();
-			board.receiveAttack(
-				Math.floor(Math.random() * board.getLength()),
-				Math.floor(Math.random() * board.getLength())
-			);
+			let board = player1.getBoard();
+			let coords = generateEmptyCoords(board);
+			board.receiveAttack(coords.x, coords.y);
+			console.log(`computer attacking ${coords.x} , ${coords.y}`);
 			const rebuild = new CustomEvent("rebuild", {
 				bubbles: true,
 			});
 			window.dispatchEvent(rebuild);
-			//figure out how to make computer attack mark on player board
+			//figure out proper coords generation
 		}
 	});
 
@@ -45,6 +44,17 @@ export default function Game() {
 		player2.getBoard().placeShip(Ship(CRUISER), 6, 5);
 		player2.getBoard().placeShip(Ship(DESTROYER), 7, 5);
 		player2.getBoard().placeShip(Ship(SUBMARINE), 8, 5);
+	}
+	function generateEmptyCoords(board) {
+		let x = Math.floor(Math.random() * board.getLength());
+		let y = Math.floor(Math.random() * board.getLength());
+		if (board.getHitBoard()[x][y] != null) {
+			generateEmptyCoords(board);
+		}
+		return {
+			x,
+			y,
+		};
 	}
 
 	return {

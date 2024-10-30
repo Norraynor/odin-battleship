@@ -18,6 +18,14 @@ function buildGameboard(player) {
 			) {
 				cell.classList.add("ship");
 			}
+			if (board.getHitBoard()[indexX][indexY] == -1) {
+				cell.classList.add("missed");
+			} else if (board.getHitBoard()[indexX][indexY] == 1) {
+				cell.classList.add("hit");
+			}
+			if (board.getGameboard()[indexX][indexY]?.isSunk()) {
+				cell.classList.add("sunk");
+			}
 			displayBoard.appendChild(cell);
 		});
 	});
@@ -49,6 +57,9 @@ function buildHitBoard(player) {
 
 			cell.addEventListener("click", (e) => {
 				e.preventDefault();
+				if (board.getHitBoard()[indexX][indexY]) {
+					return;
+				}
 				board.receiveAttack(indexX, indexY);
 
 				//generate rebuild event
