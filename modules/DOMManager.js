@@ -65,8 +65,9 @@ function buildHitBoard(player) {
 				//generate rebuild event
 				const rebuild = new CustomEvent("rebuild", {
 					bubbles: true,
+					detail: { turn: true },
 				});
-				displayBoard.dispatchEvent(rebuild);
+				window.dispatchEvent(rebuild);
 
 				console.log(`clicked ${[indexX, indexY]}`);
 

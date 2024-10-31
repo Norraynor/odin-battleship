@@ -10,10 +10,28 @@ export default function Game() {
 	const player1 = Player("Player 1");
 	const player2 = Player("Player 2", true);
 	let playersTurn = true;
+	function getTurn() {
+		return playersTurn;
+	}
+	function setTurn(val) {
+		playersTurn = val;
+	}
 
-	window.addEventListener("rebuild", () => {
-		playersTurn = !playersTurn;
+	window.setInterval(() => {
+		console.log("timeout");
+		const rebuild = new CustomEvent("rebuild", {
+			bubbles: true,
+			detail: { turn: false },
+		});
+		window.dispatchEvent(rebuild);
+	}, 2000);
+
+	window.addEventListener("rebuild", (e) => {
 		console.log(`Player ${playersTurn ? "1" : "2"}'s turn.`);
+		if (e.detail.turn) {
+			playersTurn = !playersTurn;
+			console.log("hello");
+		}
 		if (!playersTurn) {
 			//computer turn
 			let board = player1.getBoard();
@@ -22,9 +40,12 @@ export default function Game() {
 			console.log(`computer attacking ${coords.x} , ${coords.y}`);
 			const rebuild = new CustomEvent("rebuild", {
 				bubbles: true,
+				detail: { turn: true },
 			});
 			window.dispatchEvent(rebuild);
+
 			//figure out proper coords generation
+			// figure out marking again on new turn system
 		}
 	});
 
@@ -60,6 +81,8 @@ export default function Game() {
 	return {
 		getPlayers,
 		populatePlayerBoard,
+		getTurn,
+		setTurn,
 	};
 }
 
