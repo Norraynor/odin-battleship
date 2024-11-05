@@ -56,11 +56,13 @@ function buildHitBoard(player) {
 			}
 
 			cell.addEventListener("click", (e) => {
-				e.preventDefault();
 				if (board.getHitBoard()[indexX][indexY]) {
+					console.log("not empty?", board.getHitBoard()[indexX][indexY]);
 					return;
 				}
 				board.receiveAttack(indexX, indexY);
+
+				console.log(`clicked ${[indexX, indexY]}`);
 
 				//generate rebuild event
 				const rebuild = new CustomEvent("rebuild", {
@@ -68,8 +70,6 @@ function buildHitBoard(player) {
 					detail: { turn: true },
 				});
 				window.dispatchEvent(rebuild);
-
-				console.log(`clicked ${[indexX, indexY]}`);
 
 				if (board.isGameOver()) {
 					alert("Game Over!");

@@ -27,7 +27,7 @@ export default function Game() {
 	}, 2000);
 
 	window.addEventListener("rebuild", (e) => {
-		console.log(`Player ${playersTurn ? "1" : "2"}'s turn.`);
+		console.log(`Player ${playersTurn ? "1" : "2"}'s turn.`, e.detail);
 		if (e.detail.turn) {
 			playersTurn = !playersTurn;
 			console.log("hello");
@@ -35,7 +35,7 @@ export default function Game() {
 		if (!playersTurn) {
 			//computer turn
 			let board = player1.getBoard();
-			let coords = generateEmptyCoords(board);
+			let coords = generateEmptyCoords(player1);
 			board.receiveAttack(coords.x, coords.y);
 			console.log(`computer attacking ${coords.x} , ${coords.y}`);
 			const rebuild = new CustomEvent("rebuild", {
@@ -45,7 +45,6 @@ export default function Game() {
 			window.dispatchEvent(rebuild);
 
 			//figure out proper coords generation
-			// figure out marking again on new turn system
 		}
 	});
 
@@ -66,16 +65,20 @@ export default function Game() {
 		player2.getBoard().placeShip(Ship(DESTROYER), 7, 5);
 		player2.getBoard().placeShip(Ship(SUBMARINE), 8, 5);
 	}
-	function generateEmptyCoords(board) {
+	function generateEmptyCoords(player) {
+		let board = player.getBoard();
 		let x = Math.floor(Math.random() * board.getLength());
 		let y = Math.floor(Math.random() * board.getLength());
-		if (board.getHitBoard()[x][y] != null) {
-			generateEmptyCoords(board);
+		let moves = player.getMoves();
+		if (moves.indexOf([x, y]) === -1) {
+			moves.push([x, y]);
+
+			return {
+				x,
+				y,
+			};
 		}
-		return {
-			x,
-			y,
-		};
+		generateEmptyCoords(player);
 	}
 
 	return {
