@@ -10,27 +10,35 @@ export default function Game() {
 	const player1 = Player("Player 1");
 	const player2 = Player("Player 2", true);
 	let playersTurn = true;
+	let timer;
 	function getTurn() {
 		return playersTurn;
 	}
 	function setTurn(val) {
 		playersTurn = val;
 	}
+	function resetTimer() {
+		window.clearInterval(timer);
+		console.log("timer reset");
 
-	window.setInterval(() => {
-		console.log("timeout");
-		const rebuild = new CustomEvent("rebuild", {
-			bubbles: true,
-			detail: { turn: false },
-		});
-		window.dispatchEvent(rebuild);
-	}, 2000);
+		timer = window.setInterval(() => {
+			const rebuild = new CustomEvent("rebuild", {
+				bubbles: true,
+				detail: { turn: false },
+			});
+			window.dispatchEvent(rebuild);
+		}, 2000);
+	}
+	function getTimer() {
+		return timer;
+	}
 
 	window.addEventListener("rebuild", (e) => {
 		console.log(`Player ${playersTurn ? "1" : "2"}'s turn.`, e.detail);
 		if (e.detail.turn) {
 			playersTurn = !playersTurn;
 			console.log("hello");
+			resetTimer();
 		}
 		if (!playersTurn) {
 			//computer turn
@@ -70,9 +78,9 @@ export default function Game() {
 		let x = Math.floor(Math.random() * board.getLength());
 		let y = Math.floor(Math.random() * board.getLength());
 		let moves = player.getMoves();
-		if (moves.indexOf([x, y]) === -1) {
-			moves.push([x, y]);
-
+		console.log(`current coords ${x},${y}`, moves.indexOf([x][y]));
+		if (moves.indexOf([x][y]) === -1) {
+			moves.push([x][y]);
 			return {
 				x,
 				y,
@@ -86,6 +94,8 @@ export default function Game() {
 		populatePlayerBoard,
 		getTurn,
 		setTurn,
+		resetTimer,
+		getTimer,
 	};
 }
 

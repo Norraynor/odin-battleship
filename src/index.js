@@ -25,6 +25,7 @@ function component() {
 	element.appendChild(DOMManager.buildHitBoard(players[1]));
 
 	console.table(players[0].getBoard().getGameboard());
+	game.resetTimer();
 	// console.table(players[1].getBoard().getGameboard());
 
 	return element;
