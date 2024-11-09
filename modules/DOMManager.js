@@ -29,6 +29,9 @@ function buildGameboard(player) {
 			displayBoard.appendChild(cell);
 		});
 	});
+	if (board.isGameOver()) {
+		console.error("Game Over!");
+	}
 	return displayBoard;
 }
 function buildHitBoard(player) {
@@ -72,7 +75,7 @@ function buildHitBoard(player) {
 				window.dispatchEvent(rebuild);
 
 				if (board.isGameOver()) {
-					alert("Game Over!");
+					console.warning("Game Over!");
 				}
 			});
 			displayBoard.appendChild(cell);

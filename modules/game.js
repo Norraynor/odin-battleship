@@ -44,15 +44,13 @@ export default function Game() {
 			//computer turn
 			let board = player1.getBoard();
 			let coords = generateEmptyCoords(player1);
+			console.log(coords);
 			board.receiveAttack(coords.x, coords.y);
-			console.log(`computer attacking ${coords.x} , ${coords.y}`);
 			const rebuild = new CustomEvent("rebuild", {
 				bubbles: true,
 				detail: { turn: true },
 			});
 			window.dispatchEvent(rebuild);
-
-			//figure out proper coords generation
 		}
 	});
 
@@ -78,15 +76,24 @@ export default function Game() {
 		let x = Math.floor(Math.random() * board.getLength());
 		let y = Math.floor(Math.random() * board.getLength());
 		let moves = player.getMoves();
-		console.log(`current coords ${x},${y}`, moves.indexOf([x][y]));
-		if (moves.indexOf([x][y]) === -1) {
-			moves.push([x][y]);
+
+		if (x in moves) {
+			if (moves[x].indexOf(y) !== -1) {
+				return generateEmptyCoords(player);
+			} else {
+				moves[x].push(y);
+				return {
+					x,
+					y,
+				};
+			}
+		} else {
+			moves[x] = [y];
 			return {
 				x,
 				y,
 			};
 		}
-		generateEmptyCoords(player);
 	}
 
 	return {
