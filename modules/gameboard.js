@@ -25,6 +25,15 @@ function Gameboard(boardSize) {
 			} else {
 				return "invalid placement";
 			}
+		} else {
+			if (y + ship.getLength() <= gameboard.length) {
+				//place ship
+				for (i = y; i < y + ship.getLength(); i++) {
+					gameboard[i][y] = ship;
+				}
+			} else {
+				return "invalid placement";
+			}
 		}
 	}
 	function receiveAttack(x, y) {
